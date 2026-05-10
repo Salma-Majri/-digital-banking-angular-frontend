@@ -17,16 +17,13 @@ export class AuthService {
   }
 
   public login(username: string, password: string): Observable<any> {
-    let options = {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    };
-    let params = new HttpParams()
-      .set("username", username)
-      .set("password", password);
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.post(`${this.backendHost}/auth/login`, params, options);
+    const params = new HttpParams()
+      .set('username', username)
+      .set('password', password);
+    return this.http.post(`${this.backendHost}/auth/login`, params.toString(), { headers });
   }
-
   public loadProfile(data: any) {
     this.isAuthenticated = true;
     this.accessToken = data['accessToken'];
