@@ -1,0 +1,40 @@
+<div class="container mt-4 col-md-6 offset-md-3">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3>New Customer</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="newCustomerFormGroup" (ngSubmit)="handleSaveCustomer()">
+
+        <div class="mb-3">
+          <label class="form-label">Name:</label>
+          <input type="text" formControlName="name" class="form-control"
+                 [ngClass]="{'is-invalid': newCustomerFormGroup.controls['name'].touched && newCustomerFormGroup.controls['name'].errors}">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['name'].touched && newCustomerFormGroup.controls['name'].errors?.['required']">
+            Name is required!
+          </span>
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['name'].touched && newCustomerFormGroup.controls['name'].errors?.['minlength']">
+            Name must be at least 4 characters long!
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email:</label>
+          <input type="text" formControlName="email" class="form-control"
+                 [ngClass]="{'is-invalid': newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors}">
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors?.['required']">
+            Email is required!
+          </span>
+          <span class="text-danger" *ngIf="newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors?.['email']">
+            Invalid email format!
+          </span>
+        </div>
+
+        <button [disabled]="newCustomerFormGroup.invalid" class="btn btn-success w-100">
+          Save Customer
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

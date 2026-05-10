@@ -13,4 +13,8 @@ export class Customer {
   public getCustomers(): Observable<any> {
     return this.http.get(`${this.backendHost}/customers`);
   }
+
+  public saveCustomer(customer: any): Observable<any> {
+    return this.http.post(`${this.backendHost}/customers`, customer);
+  }
 }
