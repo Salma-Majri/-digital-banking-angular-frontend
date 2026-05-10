@@ -21,4 +21,9 @@ export class Customer {
   public searchCustomers(keyword: string): Observable<any> {
     return this.http.get(`${this.backendHost}/customers/search?keyword=${keyword}`);
   }
+
+
+  public deleteCustomer(id: number): Observable<any> {
+      return this.http.delete(`${this.backendHost}/customers/${id}`);
+    }
 }

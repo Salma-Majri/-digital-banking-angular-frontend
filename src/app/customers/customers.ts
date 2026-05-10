@@ -50,4 +50,20 @@ export class Customers implements OnInit {
       }
     });
   }
+
+    handleDeleteCustomer(c: any) {
+      let conf = confirm("Are you sure you want to delete this customer?");
+      if (!conf) return;
+      this.customerService.deleteCustomer(c.id).subscribe({
+        next: () => {
+          this.customers = this.customers.filter((cust: any) => cust.id !== c.id);
+          this.cdr.detectChanges();
+        },
+        error: (err: any) => {
+          console.error("Error deleting customer:", err);
+          alert("Cannot delete this customer because they have active bank accounts!");
+        }
+      });
+    }
+
 }
