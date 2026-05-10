@@ -26,4 +26,8 @@ export class Customer {
   public deleteCustomer(id: number): Observable<any> {
       return this.http.delete(`${this.backendHost}/customers/${id}`);
     }
+
+  public getAccount(accountId: string, page: number, size: number): Observable<any> {
+      return this.http.get(`${this.backendHost}/accounts/${accountId}/pageOperations?page=${page}&size=${size}`);
+  }
 }
