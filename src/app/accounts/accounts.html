@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card mb-3">
         <div class="card-header bg-secondary text-white">
           <strong>Operations History</strong>
         </div>
@@ -59,6 +59,19 @@
             </tr>
             </tbody>
           </table>
+
+          <nav *ngIf="accountDetails.totalPages > 1">
+            <ul class="nav nav-pills">
+              <li *ngFor="let p of [].constructor(accountDetails.totalPages); let i = index">
+                <button (click)="gotoPage(i)"
+                        class="btn btn-outline-info ms-1 mt-2"
+                        [ngClass]="i === currentPage ? 'btn-info text-white' : 'btn-outline-info'">
+                  {{ i + 1 }}
+                </button>
+              </li>
+            </ul>
+          </nav>
+
         </div>
       </div>
 

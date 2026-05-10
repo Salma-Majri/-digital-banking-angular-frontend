@@ -42,4 +42,9 @@ export class Accounts implements OnInit {
       }
     });
   }
+
+  gotoPage(page: number) {
+    this.currentPage = page;
+    this.handleSearchAccount();
+  }
 }
