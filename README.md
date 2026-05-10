@@ -1,59 +1,64 @@
-# DigitalBankingWeb
+# Digital Banking - Frontend (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+Developed by **Salma Majri** 
+*Master SDIA-1 - ENSET Mohammedia*
 
-## Development server
+---
 
-To start a local development server, run:
+This is the frontend application for the Digital Banking system, developed using Angular. It connects to a Spring Boot backend, manages authentication with JWT tokens, and features dynamic role-based rendering.
 
-```bash
-ng serve
-```
+##  Key Features Built
+* **Dynamic Navbar Integration**: The navbar adaptively displays links (`Customers`, `Accounts`, `New Customer`) based on the user's authentication state and roles (`ROLE_ADMIN` / `ROLE_USER`).
+* **Security Interceptor (`AppHttpInterceptor`)**: Automatically intercepts outgoing HTTP requests to append the JWT `Authorization: Bearer <token>` header.
+* **State Management & Persistence**: Integrated `AuthService` with `localStorage` to persist session tokens and maintain the user profile on page reloads.
+* **Vite & Zone.js Configuration**: Resolved runtime change detection issues by properly configuring `zone.js` within the modern standalone Angular setup.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+##  Screenshots & Application Flow
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. Authentication & Security
+The login page provides secure access to the application. In case of API communication issues (such as CORS misconfigurations during initial setup), the application displays appropriate error handling feedback.
 
-```bash
-ng generate component component-name
-```
+| Login Interface | CORS Policy Block (Initial Setup) |
+| :---: | :---: |
+| <img src="screenshots/image_c27b57.png" width="400px" alt="Login Page"/> | <img src="screenshots/image_cdc253.png" width="400px" alt="CORS Error Console"/> |
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+### 2. Customer Management (Admin Panel)
+Once authenticated as an administrator, the application unlocks management views. This includes viewing, filtering, and deleting customers dynamically.
 
-## Building
+#### Customers List View
+<img src="screenshots/image_c27b5a.png" width="800px" alt="Customers List"/>
 
-To build the project run:
+#### Interactive Live Search (Filtering by Keyword)
+<img src="screenshots/image_c27b72.png" width="800px" alt="Filtered Customers List"/>
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 3. Adding New Customers
+Administrators can securely save new customer records. The app triggers success notifications upon correct backend API execution.
 
-## Running unit tests
+<img src="screenshots/image_c27b77.png" width="800px" alt="Save Customer Success"/>
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+### 4. Backend API Documentation (Swagger UI)
+The Angular application consumes secure REST endpoints exposed and documented via Swagger on port `8085`.
 
-## Running end-to-end tests
+<img src="screenshots/image_c27b55.png" width="800px" alt="Swagger UI API Endpoints"/>
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+##  How to Run
+1.  Ensure you have Node.js and Angular CLI installed.
+2.  Install project dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    ng serve
+    ```
+4.  Open the application at `http://localhost:4200`.
