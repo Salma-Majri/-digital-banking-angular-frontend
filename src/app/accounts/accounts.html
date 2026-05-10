@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="row">
 
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3" *ngIf="!accountDetails">
       <div class="card mb-3">
         <div class="card-header bg-primary text-white">
           <h3>Search Account</h3>
@@ -18,8 +18,7 @@
       </div>
     </div>
 
-    <div class="col-md-8 offset-md-2" *ngIf="accountDetails">
-
+    <div class="col-md-6" *ngIf="accountDetails">
       <div class="card mb-3 border-primary">
         <div class="card-header bg-light text-primary">
           <strong>Account Information</strong>
@@ -30,15 +29,14 @@
         </div>
       </div>
 
-      <div class="card mb-3">
+      <div class="card">
         <div class="card-header bg-secondary text-white">
           <strong>Operations History</strong>
         </div>
         <div class="card-body">
-          <table class="table table-striped table-hover">
+          <table class="table table-striped table-hover table-sm">
             <thead>
             <tr>
-              <th>ID</th>
               <th>Date</th>
               <th>Type</th>
               <th>Amount</th>
@@ -46,16 +44,11 @@
             </thead>
             <tbody>
             <tr *ngFor="let op of accountDetails.accountOperationDTOS">
-              <td>{{op.id}}</td>
               <td>{{op.operationDate | date:'dd/MM/yyyy HH:mm'}}</td>
               <td>
-                  <span class="badge" [ngClass]="op.type === 'DEBIT' ? 'bg-danger' : 'bg-success'">
-                    {{op.type}}
-                  </span>
+                <span class="badge" [ngClass]="op.type === 'DEBIT' ? 'bg-danger' : 'bg-success'">{{op.type}}</span>
               </td>
-              <td [ngClass]="op.type === 'DEBIT' ? 'text-danger' : 'text-success'">
-                {{op.amount | number:'1.2-2'}} DH
-              </td>
+              <td [ngClass]="op.type === 'DEBIT' ? 'text-danger' : 'text-success'">{{op.amount | number:'1.2-2'}} DH</td>
             </tr>
             </tbody>
           </table>
@@ -63,18 +56,59 @@
           <nav *ngIf="accountDetails.totalPages > 1">
             <ul class="nav nav-pills">
               <li *ngFor="let p of [].constructor(accountDetails.totalPages); let i = index">
-                <button (click)="gotoPage(i)"
-                        class="btn btn-outline-info ms-1 mt-2"
-                        [ngClass]="i === currentPage ? 'btn-info text-white' : 'btn-outline-info'">
+                <button (click)="gotoPage(i)" class="btn btn-outline-info btn-sm ms-1 mt-2" [ngClass]="i === currentPage ? 'btn-info text-white' : 'btn-outline-info'">
                   {{ i + 1 }}
                 </button>
               </li>
             </ul>
           </nav>
-
         </div>
       </div>
+    </div>
 
+    <div class="col-md-6" *ngIf="accountDetails">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <strong>New Operation</strong>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="operationFormGroup" (ngSubmit)="handleAccountOperation()">
+
+            <div class="mb-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="operationType" value="DEBIT" id="debitRadio">
+                <label class="form-check-label" for="debitRadio">DEBIT</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="operationType" value="CREDIT" id="creditRadio">
+                <label class="form-check-label" for="creditRadio">CREDIT</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="operationType" value="TRANSFER" id="transferRadio">
+                <label class="form-check-label" for="transferRadio">TRANSFER</label>
+              </div>
+            </div>
+
+            <div class="mb-3" *ngIf="operationFormGroup.value.operationType === 'TRANSFER'">
+              <label class="form-label">Destination Account ID:</label>
+              <input type="text" formControlName="accountDestination" class="form-control" placeholder="Destination Account ID">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Amount (DH):</label>
+              <input type="number" formControlName="amount" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Description:</label>
+              <input type="text" formControlName="description" class="form-control" placeholder="Operation details...">
+            </div>
+
+            <button class="btn btn-success w-100">Save Operation</button>
+
+          </form>
+        </div>
+      </div>
     </div>
 
   </div>

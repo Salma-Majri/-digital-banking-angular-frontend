@@ -30,4 +30,23 @@ export class Customer {
   public getAccount(accountId: string, page: number, size: number): Observable<any> {
       return this.http.get(`${this.backendHost}/accounts/${accountId}/pageOperations?page=${page}&size=${size}`);
   }
+
+
+
+    public debit(accountId: string, amount: number, description: string): Observable<any> {
+      let data = { accountId: accountId, amount: amount, description: description };
+      return this.http.post(`${this.backendHost}/accounts/debit`, data);
+    }
+
+    public credit(accountId: string, amount: number, description: string): Observable<any> {
+      let data = { accountId: accountId, amount: amount, description: description };
+      return this.http.post(`${this.backendHost}/accounts/credit`, data);
+    }
+
+    public transfer(source: string, destination: string, amount: number, description: string): Observable<any> {
+      let data = { accountSource: source, accountDestination: destination, amount: amount, description: description };
+      return this.http.post(`${this.backendHost}/accounts/transfer`, data);
+    }
+
+
 }
