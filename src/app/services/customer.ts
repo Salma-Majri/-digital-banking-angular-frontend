@@ -17,4 +17,8 @@ export class Customer {
   public saveCustomer(customer: any): Observable<any> {
     return this.http.post(`${this.backendHost}/customers`, customer);
   }
+
+  public searchCustomers(keyword: string): Observable<any> {
+    return this.http.get(`${this.backendHost}/customers/search?keyword=${keyword}`);
+  }
 }
